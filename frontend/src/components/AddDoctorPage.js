@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import Navbar from './Navbar';
 import Select from 'react-select';
 import CreatableSelect from 'react-select/creatable';
+import { Link } from 'react-router-dom';
 
 function AddDoctorPage() {
   // Basic doctor info
@@ -22,7 +22,7 @@ function AddDoctorPage() {
   const [practices, setPractices] = useState([]);
   const [selectedPractices, setSelectedPractices] = useState([]);
   const [tags, setTags] = useState([]);
-  
+
   const [message, setMessage] = useState('');
 
   // Fetch Tags
@@ -74,6 +74,19 @@ function AddDoctorPage() {
       })
       .catch(err => console.error(err));
   }, []);
+
+  // Compute whether the form is valid (all required fields are filled)
+  const isDoctorFormValid =
+    docName.trim() !== '' &&
+    docEmail.trim() !== '' &&
+    docPhoneNo.trim() !== '' &&
+    experience.toString().trim() !== '' &&
+    bio.trim() !== '' &&
+    consultationFee.toString().trim() !== '' &&
+    tagId.trim() !== '' &&
+    selectedSpecialties.length > 0 &&
+    selectedQualifications.length > 0 &&
+    selectedPractices.length > 0;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -203,7 +216,6 @@ function AddDoctorPage() {
               ))}
             </select>
           </div>
-
           {/* Specialties (Creatable Multi-Select) */}
           <div>
             <label className="block mb-1">Specialties</label>
@@ -215,7 +227,6 @@ function AddDoctorPage() {
               placeholder="Select or add specialties..."
             />
           </div>
-
           {/* Qualifications (Creatable Multi-Select) */}
           <div>
             <label className="block mb-1">Qualifications</label>
@@ -227,7 +238,6 @@ function AddDoctorPage() {
               placeholder="Select or add qualifications..."
             />
           </div>
-
           {/* Practices (Standard Multi-Select with Add Link) */}
           <div>
             <label className="block mb-1">Practices</label>
@@ -239,12 +249,17 @@ function AddDoctorPage() {
               placeholder="Select practices..."
             />
             <p className="mt-2 text-red-600">
-  Practice not listed? <Link to="/add-practice" className="underline text-red-600">Add a practice first</Link>
-</p>
-
+              Practice not listed?{' '}
+              <Link to="/add-practice" className="underline text-red-600">
+                Add a practice first
+              </Link>
+            </p>
           </div>
-
-          <button type="submit" className="bg-blue-600 text-white p-2 rounded hover:bg-blue-700">
+          <button
+            type="submit"
+            className="bg-blue-600 text-white p-2 rounded hover:bg-blue-700"
+            disabled={!isDoctorFormValid}
+          >
             Submit
           </button>
         </form>

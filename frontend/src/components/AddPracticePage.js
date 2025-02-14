@@ -12,7 +12,7 @@ function AddPracticePage() {
   const [openTime, setOpenTime] = useState('');
   const [closeTime, setCloseTime] = useState('');
   const [website, setWebsite] = useState('');
-  
+
   // Specialties will be handled using react-select (CreatableSelect)
   const [specialties, setSpecialties] = useState([]); // Options from API (in {value, label} format)
   const [selectedSpecialties, setSelectedSpecialties] = useState([]); // Selected options
@@ -42,6 +42,20 @@ function AddPracticePage() {
       .then(data => setTags(data))
       .catch(err => console.error(err));
   }, []);
+
+  // Compute whether the form is valid (all required fields are filled)
+  const isPracticeFormValid =
+    practiceName.trim() !== '' &&
+    contactNo.trim() !== '' &&
+    email.trim() !== '' &&
+    address.trim() !== '' &&
+    city.trim() !== '' &&
+    state.trim() !== '' &&
+    openTime.trim() !== '' &&
+    closeTime.trim() !== '' &&
+    website.trim() !== '' &&
+    tagId.trim() !== '' &&
+    selectedSpecialties.length > 0;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -210,7 +224,11 @@ function AddPracticePage() {
               ))}
             </select>
           </div>
-          <button type="submit" className="bg-blue-600 text-white p-2 rounded hover:bg-blue-700">
+          <button
+            type="submit"
+            className="bg-blue-600 text-white p-2 rounded hover:bg-blue-700"
+            disabled={!isPracticeFormValid}
+          >
             Submit
           </button>
         </form>
