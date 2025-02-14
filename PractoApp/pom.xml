@@ -62,9 +62,15 @@
 				<version>5.0.0</version>  <!-- You can use the latest version -->
 				<scope>provided</scope>
 			</dependency>
+		<dependency>
+			<groupId>co.elastic.clients</groupId>
+			<artifactId>elasticsearch-java</artifactId>
+			<version>8.17.2</version>  <!-- Update to match your Elasticsearch version -->
+		</dependency>
 
 
-			<dependency>
+
+		<dependency>
 				<groupId>org.postgresql</groupId>
 				<artifactId>postgresql</artifactId>
 				<scope>runtime</scope>
