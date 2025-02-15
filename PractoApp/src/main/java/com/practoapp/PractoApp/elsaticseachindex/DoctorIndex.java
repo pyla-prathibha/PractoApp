@@ -18,5 +18,7 @@ public class DoctorIndex {
     private int experience;
     private String bio;
     private double consultationFee;
+    private String tag;                  // New field for tag name
+    private List<String> practices;      // New field for practice names
 }
 

@@ -113,7 +113,16 @@ public class DoctorServiceImpl implements DoctorService {
             doctorIndex.setSpecialties(specialtyNames);
         }
 
-        // Flatten qualifications: using Qualification::getQualName
+
+        if (savedDoctor.getSpecialties() != null) {
+            List<String> specialtyNames = savedDoctor.getSpecialties()
+                    .stream()
+                    .map(Speciality::getSpecName)
+                    .collect(Collectors.toList());
+            doctorIndex.setSpecialties(specialtyNames);
+        }
+
+        // Map qualifications using Qualification::getQualName
         if (savedDoctor.getQualifications() != null) {
             List<String> qualificationNames = savedDoctor.getQualifications()
                     .stream()
@@ -121,6 +130,22 @@ public class DoctorServiceImpl implements DoctorService {
                     .collect(Collectors.toList());
             doctorIndex.setQualifications(qualificationNames);
         }
+
+// Map tag using Tag::getTagName
+        if (savedDoctor.getTag() != null) {
+            doctorIndex.setTag(savedDoctor.getTag().getTagName());
+        }
+
+// Map practices: For each DocPractice, retrieve the practice name
+        if (savedDoctor.getDocPractices() != null) {
+            List<String> practiceNames = savedDoctor.getDocPractices()
+                    .stream()
+                    .map(dp -> dp.getPractice().getPracticeName())
+                    .collect(Collectors.toList());
+            doctorIndex.setPractices(practiceNames);
+        }
+
+
 
         // Save the DoctorIndex object in Elasticsearch
         doctorSearchRepository.save(doctorIndex);
@@ -205,12 +230,27 @@ public class DoctorServiceImpl implements DoctorService {
             doctorIndex.setSpecialties(specialtyNames);
         }
 
+        // Map qualifications using Qualification::getQualName
         if (savedDoctor.getQualifications() != null) {
             List<String> qualificationNames = savedDoctor.getQualifications()
                     .stream()
                     .map(Qualification::getQualName)
                     .collect(Collectors.toList());
             doctorIndex.setQualifications(qualificationNames);
+        }
+
+// Map tag using Tag::getTagName
+        if (savedDoctor.getTag() != null) {
+            doctorIndex.setTag(savedDoctor.getTag().getTagName());
+        }
+
+// Map practices: For each DocPractice, retrieve the practice name
+        if (savedDoctor.getDocPractices() != null) {
+            List<String> practiceNames = savedDoctor.getDocPractices()
+                    .stream()
+                    .map(dp -> dp.getPractice().getPracticeName())
+                    .collect(Collectors.toList());
+            doctorIndex.setPractices(practiceNames);
         }
 
         // Update the Elasticsearch index
