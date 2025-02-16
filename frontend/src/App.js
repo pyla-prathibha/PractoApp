@@ -10,6 +10,10 @@ import PatientHomePage from './components/PatientHomePage';
 import DoctorSearchPage from './components/DoctorSearchPage';
 import PracticeSearchPage from './components/PracticeSearchPage';
 
+// Profile pages:
+import DoctorProfilePage from './components/DoctorProfilePage';
+import PracticeProfilePage from './components/PracticeProfilePage';
+
 function App() {
   return (
     <Routes>
@@ -25,6 +29,10 @@ function App() {
       <Route path="/patient-home" element={<PatientHomePage />} />
       <Route path="/doctor-search" element={<DoctorSearchPage />} />
       <Route path="/practice-search" element={<PracticeSearchPage />} />
+
+      {/* Profile pages */}
+      <Route path="/doctor-profile/:id" element={<DoctorProfilePage />} />
+      <Route path="/practice-profile/:id" element={<PracticeProfilePage />} />
     </Routes>
   );
 }
