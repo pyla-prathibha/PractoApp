@@ -3,7 +3,7 @@ import PatientNavbar from './PatientNavbar';
 
 function PracticeSearchPage() {
   const [query, setQuery] = useState('');
-  const [results, setResults] = useState([]);
+  const [results, setResults] = useState([]); // Each result: { practice: {...}, doctors: [...] }
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -24,9 +24,7 @@ function PracticeSearchPage() {
 
       const response = await fetch(apiUrl, {
         method: 'GET',
-        headers: {
-          'Content-Type': 'application/json'
-        }
+        headers: { 'Content-Type': 'application/json' },
       });
 
       if (!response.ok) {
@@ -56,42 +54,87 @@ function PracticeSearchPage() {
               type="text"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
+              placeholder="Enter practice name or specialty..."
               className="w-full p-2 border border-gray-300 rounded"
-              placeholder="Enter practice name or specialty"
+              required
             />
           </div>
           <button
             type="submit"
             className="bg-blue-600 text-white p-2 rounded hover:bg-blue-700"
           >
-            Search
+            {loading ? 'Searching...' : 'Search'}
           </button>
         </form>
         {loading && <p>Loading...</p>}
         {error && <p className="text-red-500">{error}</p>}
         <div>
           {results.length > 0 ? (
-            results.map((practice) => (
-              <div key={practice.id} className="border p-4 mb-4 rounded">
-                <h3 className="text-xl font-bold">{practice.practiceName}</h3>
-                <p><strong>Contact:</strong> {practice.contactNo}</p>
-                <p><strong>Email:</strong> {practice.email}</p>
+            results.map((result) => (
+              <div key={result.practice.id} className="border p-4 mb-4 rounded">
+                <h3 className="text-xl font-bold">{result.practice.practiceName}</h3>
                 <p>
-                  <strong>Address:</strong> {practice.address}, {practice.city}, {practice.state}
+                  <strong>Contact:</strong> {result.practice.contactNo}
                 </p>
                 <p>
-                  <strong>Open Time:</strong> {practice.openTime} - {practice.closeTime}
+                  <strong>Email:</strong> {result.practice.email}
+                </p>
+                <p>
+                  <strong>Address:</strong> {result.practice.address}, {result.practice.city}, {result.practice.state}
+                </p>
+                <p>
+                  <strong>Open Time:</strong> {result.practice.openTime} - {result.practice.closeTime}
                 </p>
                 <p>
                   <strong>Website:</strong>{' '}
-                  <a href={practice.website} target="_blank" rel="noopener noreferrer">
-                    {practice.website}
+                  <a href={result.practice.website} target="_blank" rel="noopener noreferrer">
+                    {result.practice.website}
                   </a>
                 </p>
                 <p>
-                  <strong>Specialties:</strong> {practice.specialties ? practice.specialties.join(', ') : 'N/A'}
+                  <strong>Specialties:</strong> {result.practice.specialties ? result.practice.specialties.join(', ') : 'N/A'}
                 </p>
-                <p><strong>Tag:</strong> {practice.tag}</p>
+                <p>
+                  <strong>Tag:</strong> {result.practice.tag}
+                </p>
+                <div className="mt-4">
+                  <h4 className="text-lg font-semibold">Doctors</h4>
+                  {result.doctors && result.doctors.length > 0 ? (
+                    result.doctors.map((doc) => (
+                      <div key={doc.id} className="ml-4 border-l pl-2 mb-2">
+                        <p>
+                          <strong>Name:</strong> {doc.docName}
+                        </p>
+                        <p>
+                          <strong>Email:</strong> {doc.docEmail}
+                        </p>
+                        <p>
+                          <strong>Phone:</strong> {doc.docPhoneNo}
+                        </p>
+                        <p>
+                          <strong>Experience:</strong> {doc.experience} years
+                        </p>
+                        <p>
+                          <strong>Fee:</strong> ₹{doc.consultationFee}
+                        </p>
+                        <p>
+                          <strong>Specialties:</strong>{' '}
+                          {doc.specialties && Array.isArray(doc.specialties)
+                            ? doc.specialties.map(s => s.specName || s.name).join(', ')
+                            : 'N/A'}
+                        </p>
+                        {doc.qualifications && Array.isArray(doc.qualifications) && doc.qualifications.length > 0 && (
+                          <p>
+                            <strong>Qualifications:</strong>{' '}
+                            {doc.qualifications.map(q => q.qualName || q.name).join(', ')}
+                          </p>
+                        )}
+                      </div>
+                    ))
+                  ) : (
+                    <p className="ml-4">No doctors available for this practice.</p>
+                  )}
+                </div>
               </div>
             ))
           ) : (

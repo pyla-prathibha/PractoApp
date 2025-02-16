@@ -1,5 +1,6 @@
 package com.practoapp.PractoApp.elasticsearchcontroller;
 
+import com.practoapp.PractoApp.dto.PracticeWithDoctorsDto;
 import com.practoapp.PractoApp.elasticsearchservice.PracticeSearchService;
 import com.practoapp.PractoApp.elsaticseachindex.PracticeIndex;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,15 +19,27 @@ public class PracticeSearchController {
         this.practiceSearchService = practiceSearchService;
     }
 
+//    /**
+//     * Endpoint to search for practices using a single query string.
+//     * Example: GET /search/practices?query=Sun
+//     *
+//     * @param query the search string that will be matched against both the practice name and specialties
+//     * @return a list of matching practices
+//     */
+//    @GetMapping("/practices")
+//    public List<PracticeIndex> searchPractices(@RequestParam String query) {
+//        return practiceSearchService.searchPractices(query);
+//    }
+
     /**
      * Endpoint to search for practices using a single query string.
      * Example: GET /search/practices?query=Sun
      *
-     * @param query the search string that will be matched against both the practice name and specialties
-     * @return a list of matching practices
+     * @param query the search string
+     * @return a list of PracticeWithDoctorsDto objects containing practice info and associated doctors
      */
     @GetMapping("/practices")
-    public List<PracticeIndex> searchPractices(@RequestParam String query) {
+    public List<PracticeWithDoctorsDto> searchPractices(@RequestParam String query) {
         return practiceSearchService.searchPractices(query);
     }
 }
