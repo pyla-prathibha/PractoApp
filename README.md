@@ -4,7 +4,7 @@ This project is a **Practo Clone** that allows users to search and manage doctor
 
 ## Features
 
-- **Doctor Management**: Add, update, and delete doctor details including specialties, qualifications, and contact information.
+- **Doctor Management**: Ads doctor details including specialties, qualifications, and contact information.
 - **Practice Management**: Manage medical practices including contact details, working hours, and associated doctors.
 - **Search Functionality**: Search for doctors and practices using Elasticsearch with filtering by practice name and specialties.
 - **Doctor-Doctor Relationships**: Link multiple doctors to a single practice.
@@ -35,3 +35,37 @@ This project is a **Practo Clone** that allows users to search and manage doctor
    ```bash
    git clone https://github.com/yourusername/practo-clone.git
    cd practo-clone
+2.Create the database:
+
+CREATE DATABASE practo_clone;
+3.Update application.properties
+4.Install and run Elasticsearch & Kibana using Docker:
+docker network create elastic
+docker run -d --name elasticsearch --net elastic -p 9200:9200 -e "discovery.type=single-node" docker.elastic.co/elasticsearch/elasticsearch:8.5.3
+## Setup & Installation
+
+1. Clone the repo:
+   ```sh
+   git clone [your-repo-url]
+   ```
+2. Navigate to the backend directory:
+   ```sh
+   cd backend
+   ```
+3. Run the Spring Boot application:
+   ```sh
+   mvn spring-boot:run
+   ```
+### Frontend:
+1. Navigate to the frontend directory:
+   ```sh
+   cd frontend
+   ```
+2. Install dependencies:
+   ```sh
+   npm install
+   ```
+3. Start the development server:
+   ```sh
+   npm start
+
