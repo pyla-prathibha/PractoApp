@@ -29,19 +29,6 @@ This project is a **Practo Clone** that allows users to search and manage doctor
 - **Elasticsearch** (version 7.x or higher)
 - **Node.js and npm** (for frontend development)
 
-### Backend Setup
-
-1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/yourusername/practo-clone.git
-   cd practo-clone
-2.Create the database:
-
-CREATE DATABASE practo_clone;
-3.Update application.properties
-4.Install and run Elasticsearch & Kibana using Docker:
-docker network create elastic
-docker run -d --name elasticsearch --net elastic -p 9200:9200 -e "discovery.type=single-node" docker.elastic.co/elasticsearch/elasticsearch:8.5.3
 ## Setup & Installation
 
 1. Clone the repo:
