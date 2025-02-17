@@ -71,3 +71,31 @@ This project is a **Practo Clone** that allows users to search and manage doctor
    ```sh
    npm start
 
+##Folder Structure
+practo-clone/
+├── backend/                     # Spring Boot backend
+│   ├── src/
+│   │   ├── main/
+│   │   │   ├── java/
+│   │   │   │   └── com/
+│   │   │   │       └── practoapp/
+│   │   │   │           ├── controller/       # REST Controllers
+│   │   │   │           ├── service/          # Services for business logic
+│   │   │   │           ├── repository/       # JPA Repositories
+│   │   │   │           ├── entity/           # JPA Entities
+│   │   │   │           ├── dto/              # Data Transfer Objects
+│   │   │   │           ├── elasticsearch/    # Elasticsearch integration
+│   │   │   │           └── config/            # Configuration classes
+│   │   │   └── resources/
+│   │   │       └── application.properties      # Configuration file
+│   └── pom.xml                                 # Maven project file
+└── frontend/                    # React frontend
+    ├── public/
+    ├── src/
+    │   ├── components/           # React components
+    │   ├── pages/                # Pages for routing
+    │   ├── App.js                # Main React component
+    │   ├── index.js              # Entry point for React app
+    ├── package.json              # npm package file
+
+
