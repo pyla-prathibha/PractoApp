@@ -20,14 +20,29 @@ This project is a **Practo Clone** that allows users to search and manage doctor
 - **Authentication**: Session-based authentication with cookies
 - **Others**: Lombok, JPA, Spring Data Elasticsearch
 
-## Setup and Installation
-
 ### Prerequisites
 
 - **Java 17** (or higher)
 - **MySQL 8** (or higher)
 - **Elasticsearch** (version 7.x or higher)
 - **Node.js and npm** (for frontend development)
+
+  
+## Database Schema
+
+### Tables in `practo` database:
+| Table Name             | Description |
+|------------------------|-------------|
+| `doc_practice`         | Maps doctors to practices (hospitals/clinics). |
+| `doctor_qualification` | Stores doctor qualifications. |
+| `doctor_speciality`    | Stores doctor specialties. |
+| `doctors`             | Stores doctor details. |
+| `practice_speciality`  | Maps practices to specialties. |
+| `practices`           | Stores hospital/clinic details. |
+| `qualifications`       | Stores qualification details. |
+| `specialities`        | Stores specialty details. |
+| `tags`               | Stores tags for filtering/search. |
+| `users`              | Stores user login details. |
 
 ## Setup & Installation
 
