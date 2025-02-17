@@ -25,7 +25,7 @@ This project is a **Practo Clone** that allows users to search and manage doctor
 - **Java 17** (or higher)
 - **MySQL 8** (or higher)
 - **Elasticsearch** (version 7.x or higher)
-- **Node.js and npm** (for frontend development)
+- **React.js and npm** (for frontend development)
 
   
 ## Database Schema
